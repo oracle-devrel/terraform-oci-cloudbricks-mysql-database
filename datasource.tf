@@ -52,7 +52,7 @@ locals {
   # Compartment OCID Local Accessors
   compartment_id    = lookup(data.oci_identity_compartments.COMPARTMENTS.compartments[0], "id")
   nw_compartment_id = lookup(data.oci_identity_compartments.NWCOMPARTMENTS.compartments[0], "id")
-  
+
   # VCN OCID Local Accessor
   vcn_id = lookup(data.oci_core_vcns.VCN.virtual_networks[0], "id")
 }
