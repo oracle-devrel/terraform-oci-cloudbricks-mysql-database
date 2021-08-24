@@ -3,7 +3,7 @@
 [![License: UPL](https://img.shields.io/badge/license-UPL-green)](https://img.shields.io/badge/license-UPL-green) [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=oracle-devrel_terraform-oci-cloudbricks-mysql-database)](https://sonarcloud.io/dashboard?id=oracle-devrel_terraform-oci-cloudbricks-mysql-database)
 
 ## Introduction
-The following brick enabled you to create MySQL Database Systems in either HA or not.
+The following brick enables you to create MySQL Database Systems in either HA or not.
 
 ## Reference Architecture
 The following is the reference architecture associated to this brick
@@ -49,7 +49,7 @@ mysql_db_system_port_x                          = "33060"
 
 ### Variable specific considerations
 - When using HA variable `mysql_db_system_availability_domain` is used as the preferred region but others will still be used in the event of outage.
-- If variable `mysql_db_system_is_highly_available` is set to true, the same mysql shape is deployed in each availability domains.
+- If variable `mysql_db_system_is_highly_available` is set to true, the same mysql shape is deployed in each availability domain.
 - If variable `mysql_db_system_backup_policy_is_enabled` is set to false `mysql_db_system_backup_policy_retention_in_days` and `mysql_db_system_backup_policy_window_start_time` are ignored and don't need to be defined.
 
 ---
