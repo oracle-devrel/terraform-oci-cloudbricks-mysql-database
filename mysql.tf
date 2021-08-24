@@ -18,9 +18,15 @@ resource "oci_mysql_mysql_db_system" "DBSystem" {
   dynamic "backup_policy" {
     for_each = var.mysql_db_system_backup_policy_is_enabled ? [1] : []
     content {
-      is_enabled        = var.mysql_db_system_backup_policy_is_enabled
+      is_enabled        = true
       retention_in_days = var.mysql_db_system_backup_policy_retention_in_days
       window_start_time = var.mysql_db_system_backup_policy_window_start_time
+    }
+  }
+  dynamic "backup_policy" {
+    for_each = var.mysql_db_system_backup_policy_is_enabled ? [] : [1]
+    content {
+      is_enabled = false
     }
   }
   data_storage_size_in_gb = var.mysql_db_system_data_storage_size_in_gb
