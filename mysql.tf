@@ -29,9 +29,11 @@ resource "oci_mysql_mysql_db_system" "DBSystem" {
     }
   }
   data_storage_size_in_gb = var.mysql_db_system_data_storage_size_in_gb
+  defined_tags            = var.mysql_db_system_defined_tags
   description             = var.mysql_db_system_description
   display_name            = var.mysql_db_system_display_name
   fault_domain            = var.mysql_db_system_fault_domain
+  freeform_tags           = var.mysql_db_system_freeform_tags
   hostname_label          = var.mysql_db_system_hostname_label
   is_highly_available     = var.mysql_db_system_is_highly_available
   maintenance {
