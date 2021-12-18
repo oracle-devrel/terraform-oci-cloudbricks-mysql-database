@@ -73,6 +73,11 @@ variable "mysql_db_system_data_storage_size_in_gb" {
   description = "Initial size of the data volume in GiBs that will be created and attached."
 }
 
+variable "mysql_db_system_defined_tags" {
+  description = "Defined tags for this resource. Each key is predefined and scoped to a namespace."
+  default = {}
+}
+
 variable "mysql_db_system_description" {
   description = "User-provided data about the DB System."
 }
@@ -83,6 +88,11 @@ variable "mysql_db_system_display_name" {
 
 variable "mysql_db_system_fault_domain" {
   description = "The fault domain on which to deploy the Read/Write endpoint. This defines the preferred primary instance."
+}
+
+variable "mysql_db_system_freeform_tags" {
+  description = "Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace."
+  default = {}
 }
 
 variable "mysql_db_system_hostname_label" {
