@@ -140,24 +140,6 @@ No modules.
 | <a name="input_user_ocid"></a> [user\_ocid](#input\_user\_ocid) | User OCID in tenancy | `any` | n/a | yes |
 | <a name="input_vcn_display_name"></a> [vcn\_display\_name](#input\_vcn\_display\_name) | VCN Display name to execute lookup | `any` | n/a | yes |
 
-variable "subnet_id" {
-  description = "Subnet ID. Use alternatively to network_subnet_name"
-  default = ""
-}
-variable "subnet_id" {
-  description = "Subnet ID. Use alternatively to network_subnet_name"
-  default = ""
-}
-variable "mysql_instance_compartment_ocid" {
-  description = "OCID of the compartment where MySQL Instance will be created. Use alternatively to mysql_instance_compartment_name"
-  default = ""
-}
-
-variable "mysql_network_compartment_ocid" {
-  description = "OCID of the compartment where the network of MySQL artifact is. Use alternatively to mysql_network_compartment_name"
-  default = ""
-}
-
 ## Outputs
 
 | Name | Description |
