@@ -38,6 +38,16 @@ variable "mysql_network_compartment_name" {
   description = "Compartment where the network of MySQL artifact is"
 }
 
+variable "mysql_instance_compartment_ocid" {
+  description = "OCID of the compartment where MySQL Instance will be created"
+  default = ""
+}
+
+variable "mysql_network_compartment_ocid" {
+  description = "OCID of the compartment where the network of MySQL artifact is"
+  default = ""
+}
+
 variable "mysql_db_system_admin_password" {
   description = "(Required) The password for the administrative user. The password must be between 8 and 32 characters long, and must contain at least 1 numeric character, 1 lowercase character, 1 uppercase character, and 1 special (nonalphanumeric) character."
 }
@@ -130,6 +140,17 @@ variable "network_subnet_name" {
 variable "vcn_display_name" {
   description = "VCN Display name to execute lookup"
 }
+
+variable "subnet_id" {
+  description = "Subnet ID. Use alternatively to network_subnet_name"
+  default = ""
+}
+
+variable "vcn_id" {
+  description = "VCN ID. USe alternatively to vcn_display_name"
+  default = ""
+}
+
 /********** Datasource related variables **********/
 
 /********** Brick Variables **********/
