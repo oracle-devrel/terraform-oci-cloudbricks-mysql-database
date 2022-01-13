@@ -39,12 +39,12 @@ variable "mysql_network_compartment_name" {
 }
 
 variable "mysql_instance_compartment_ocid" {
-  description = "OCID of the compartment where MySQL Instance will be created"
+  description = "OCID of the compartment where MySQL Instance will be created. Use alternatively to mysql_instance_compartment_name"
   default = ""
 }
 
 variable "mysql_network_compartment_ocid" {
-  description = "OCID of the compartment where the network of MySQL artifact is"
+  description = "OCID of the compartment where the network of MySQL artifact is. Use alternatively to mysql_network_compartment_name"
   default = ""
 }
 
