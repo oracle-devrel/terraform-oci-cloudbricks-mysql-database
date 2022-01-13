@@ -14,7 +14,7 @@ variable "tenancy_ocid" {
 }
 
 variable "user_ocid" {
-  description = "User OCID in tenancy. Currently hardcoded to user denny.alquinta@oracle.com"
+  description = "User OCID in tenancy"
 }
 
 variable "fingerprint" {
@@ -142,12 +142,7 @@ variable "vcn_display_name" {
 }
 
 variable "subnet_id" {
-  description = "Subnet ID. Use alternatively to network_subnet_name"
-  default = ""
-}
-
-variable "vcn_id" {
-  description = "VCN ID. USe alternatively to vcn_display_name"
+  description = "Subnet OCID. Use alternatively to network_subnet_name"
   default = ""
 }
 

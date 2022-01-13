@@ -51,6 +51,7 @@ mysql_db_system_port_x                          = "33060"
 - When using HA variable `mysql_db_system_availability_domain` is used as the preferred region but others will still be used in the event of outage.
 - If variable `mysql_db_system_is_highly_available` is set to true, the same mysql shape is deployed in each availability domain.
 - If variable `mysql_db_system_backup_policy_is_enabled` is set to false `mysql_db_system_backup_policy_retention_in_days` and `mysql_db_system_backup_policy_window_start_time` are ignored and don't need to be defined.
+- Alternatively to `mysql_instance_compartment_name`, `mysql_network_compartment_name`, `vcn_display_name` and `network_subnet_name`, you can use `mysql_instance_compartment_ocid`, `mysql_network_compartment_ocid` and `subnet_id` (no VCN OCID is required in that case).
 
 ---
 ### Sample provider
@@ -129,12 +130,33 @@ No modules.
 | <a name="input_mysql_db_system_port_x"></a> [mysql\_db\_system\_port\_x](#input\_mysql\_db\_system\_port\_x) | (Optional) The TCP network port on which X Plugin listens for connections. This is the X Plugin equivalent of port. | `string` | `"33060"` | no |
 | <a name="input_mysql_instance_compartment_name"></a> [mysql\_instance\_compartment\_name](#input\_mysql\_instance\_compartment\_name) | Compartment where MySQL Instance will be created | `any` | n/a | yes |
 | <a name="input_mysql_network_compartment_name"></a> [mysql\_network\_compartment\_name](#input\_mysql\_network\_compartment\_name) | Compartment where the network of MySQL artifact is | `any` | n/a | yes |
+| <a name="input_mysql_instance_compartment_ocid"></a> [mysql\_instance\_compartment\_ocid](#input\_mysql\_instance\_compartment\_ocid) | (Optional) OCID of the compartment where MySQL Instance will be created. Use alternatively to mysql_instance_compartment_name | `any` | n/a | no |
+| <a name="input_mysql_network_compartment_ocid"></a> [mysql\_network\_compartment\_ocid](#input\_mysql\_network\_compartment\_ocid) | (Optional) OCID of the compartment where the network of MySQL artifact is. Use alternatively to mysql_network_compartment_name | `any` | n/a | no |
 | <a name="input_mysql_shape_name"></a> [mysql\_shape\_name](#input\_mysql\_shape\_name) | (Required) The name of the shape. The shape determines the resources allocated. CPU cores and memory for VM shapes; CPU cores, memory and storage for non-VM (or bare metal) shapes. To get a list of shapes, use the ListShapes operation. | `any` | n/a | yes |
 | <a name="input_network_subnet_name"></a> [network\_subnet\_name](#input\_network\_subnet\_name) | Defines the subnet display name where this resource will be created at | `any` | n/a | yes |
+| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | (Optional) Subnet OCID. Use alternatively to network_subnet_name | `any` | n/a | no |
 | <a name="input_region"></a> [region](#input\_region) | Target region where artifacts are going to be created | `any` | n/a | yes |
 | <a name="input_tenancy_ocid"></a> [tenancy\_ocid](#input\_tenancy\_ocid) | OCID of tenancy | `any` | n/a | yes |
-| <a name="input_user_ocid"></a> [user\_ocid](#input\_user\_ocid) | User OCID in tenancy. Currently hardcoded to user denny.alquinta@oracle.com | `any` | n/a | yes |
+| <a name="input_user_ocid"></a> [user\_ocid](#input\_user\_ocid) | User OCID in tenancy | `any` | n/a | yes |
 | <a name="input_vcn_display_name"></a> [vcn\_display\_name](#input\_vcn\_display\_name) | VCN Display name to execute lookup | `any` | n/a | yes |
+
+variable "subnet_id" {
+  description = "Subnet ID. Use alternatively to network_subnet_name"
+  default = ""
+}
+variable "subnet_id" {
+  description = "Subnet ID. Use alternatively to network_subnet_name"
+  default = ""
+}
+variable "mysql_instance_compartment_ocid" {
+  description = "OCID of the compartment where MySQL Instance will be created. Use alternatively to mysql_instance_compartment_name"
+  default = ""
+}
+
+variable "mysql_network_compartment_ocid" {
+  description = "OCID of the compartment where the network of MySQL artifact is. Use alternatively to mysql_network_compartment_name"
+  default = ""
+}
 
 ## Outputs
 
