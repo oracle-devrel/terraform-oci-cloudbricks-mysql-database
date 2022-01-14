@@ -10,9 +10,9 @@ resource "oci_mysql_mysql_db_system" "DBSystem" {
   admin_password      = var.mysql_db_system_admin_password
   admin_username      = var.mysql_db_system_admin_username
   availability_domain = var.mysql_db_system_availability_domain
-  compartment_id      = local.compartment_id
+  compartment_id      = var.mysql_instance_compartment_ocid != ""? var.mysql_instance_compartment_ocid : local.compartment_id
   shape_name          = var.mysql_shape_name
-  subnet_id           = local.subnet_ocid
+  subnet_id           = var.subnet_id != ""? var.subnet_id : local.subnet_ocid
 
   dynamic "backup_policy" {
     for_each = var.mysql_db_system_backup_policy_is_enabled ? [1] : []

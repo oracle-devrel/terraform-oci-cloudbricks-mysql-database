@@ -7,6 +7,7 @@
 
 /********** Compartment and CF Accessors **********/
 data "oci_identity_compartments" "COMPARTMENTS" {
+  count = var.mysql_instance_compartment_ocid == "" ? 1 : 0
   compartment_id            = var.tenancy_ocid
   compartment_id_in_subtree = true
   filter {
@@ -16,6 +17,7 @@ data "oci_identity_compartments" "COMPARTMENTS" {
 }
 
 data "oci_identity_compartments" "NWCOMPARTMENTS" {
+  count = var.mysql_network_compartment_ocid == "" ? 1 : 0
   compartment_id            = var.tenancy_ocid
   compartment_id_in_subtree = true
   filter {
@@ -25,6 +27,7 @@ data "oci_identity_compartments" "NWCOMPARTMENTS" {
 }
 
 data "oci_core_vcns" "VCN" {
+  count = var.subnet_id == "" ? 1 : 0
   compartment_id = local.nw_compartment_id
   filter {
     name   = "display_name"
@@ -36,6 +39,7 @@ data "oci_core_vcns" "VCN" {
 /********** Subnet Accessors **********/
 
 data "oci_core_subnets" "SUBNET" {
+  count = var.subnet_id == "" ? 1 : 0
   compartment_id = local.nw_compartment_id
   vcn_id         = local.vcn_id
   filter {
@@ -47,12 +51,12 @@ data "oci_core_subnets" "SUBNET" {
 
 locals {
   # Subnet OCID Local accessor
-  subnet_ocid = length(data.oci_core_subnets.SUBNET.subnets) > 0 ? data.oci_core_subnets.SUBNET.subnets[0].id : null
+  subnet_ocid = var.subnet_id == "" ? (length(data.oci_core_subnets.SUBNET[0].subnets) > 0 ? data.oci_core_subnets.SUBNET[0].subnets[0].id : null) : null
 
   # Compartment OCID Local Accessors
-  compartment_id    = lookup(data.oci_identity_compartments.COMPARTMENTS.compartments[0], "id")
-  nw_compartment_id = lookup(data.oci_identity_compartments.NWCOMPARTMENTS.compartments[0], "id")
+  compartment_id    = var.mysql_instance_compartment_ocid == "" ? lookup(data.oci_identity_compartments.COMPARTMENTS[0].compartments[0], "id") : null
+  nw_compartment_id = var.mysql_network_compartment_ocid == "" ? lookup(data.oci_identity_compartments.NWCOMPARTMENTS[0].compartments[0], "id") : null
 
   # VCN OCID Local Accessor
-  vcn_id = lookup(data.oci_core_vcns.VCN.virtual_networks[0], "id")
+  vcn_id = var.subnet_id == "" ? lookup(data.oci_core_vcns.VCN[0].virtual_networks[0], "id") : null
 }

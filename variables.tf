@@ -14,7 +14,7 @@ variable "tenancy_ocid" {
 }
 
 variable "user_ocid" {
-  description = "User OCID in tenancy. Currently hardcoded to user denny.alquinta@oracle.com"
+  description = "User OCID in tenancy"
 }
 
 variable "fingerprint" {
@@ -36,6 +36,16 @@ variable "mysql_instance_compartment_name" {
 
 variable "mysql_network_compartment_name" {
   description = "Compartment where the network of MySQL artifact is"
+}
+
+variable "mysql_instance_compartment_ocid" {
+  description = "OCID of the compartment where MySQL Instance will be created. Use alternatively to mysql_instance_compartment_name"
+  default = ""
+}
+
+variable "mysql_network_compartment_ocid" {
+  description = "OCID of the compartment where the network of MySQL artifact is. Use alternatively to mysql_network_compartment_name"
+  default = ""
 }
 
 variable "mysql_db_system_admin_password" {
@@ -130,6 +140,12 @@ variable "network_subnet_name" {
 variable "vcn_display_name" {
   description = "VCN Display name to execute lookup"
 }
+
+variable "subnet_id" {
+  description = "Subnet OCID. Use alternatively to network_subnet_name"
+  default = ""
+}
+
 /********** Datasource related variables **********/
 
 /********** Brick Variables **********/
