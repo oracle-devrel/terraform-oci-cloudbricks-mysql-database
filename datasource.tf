@@ -27,7 +27,7 @@ data "oci_identity_compartments" "NWCOMPARTMENTS" {
 }
 
 data "oci_core_vcns" "VCN" {
-  count = var.subnet_id == "" ? 1 : 0
+  count = var.vcn_display_name != "" ? 1 : 0
   compartment_id = local.nw_compartment_id
   filter {
     name   = "display_name"
@@ -39,7 +39,7 @@ data "oci_core_vcns" "VCN" {
 /********** Subnet Accessors **********/
 
 data "oci_core_subnets" "SUBNET" {
-  count = var.subnet_id == "" ? 1 : 0
+  count = var.network_subnet_name != "" ? 1 : 0
   compartment_id = local.nw_compartment_id
   vcn_id         = local.vcn_id
   filter {

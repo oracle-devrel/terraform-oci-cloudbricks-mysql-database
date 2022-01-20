@@ -32,10 +32,12 @@ variable "private_key_path" {
 /********** MySQL Variables **********/
 variable "mysql_instance_compartment_name" {
   description = "Compartment where MySQL Instance will be created"
+  default = ""
 }
 
 variable "mysql_network_compartment_name" {
   description = "Compartment where the network of MySQL artifact is"
+  default = ""
 }
 
 variable "mysql_instance_compartment_ocid" {
@@ -135,10 +137,12 @@ variable "mysql_db_system_port_x" {
 /********** Datasource and Subnet Lookup related variables **********/
 variable "network_subnet_name" {
   description = "Defines the subnet display name where this resource will be created at"
+  default = ""
 }
 
 variable "vcn_display_name" {
   description = "VCN Display name to execute lookup"
+  default = ""
 }
 
 variable "subnet_id" {
