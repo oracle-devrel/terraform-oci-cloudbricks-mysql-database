@@ -132,7 +132,10 @@ No modules.
 | <a name="input_mysql_network_compartment_name"></a> [mysql\_network\_compartment\_name](#input\_mysql\_network\_compartment\_name) | Compartment where the network of MySQL artifact is | `any` | n/a | yes |
 | <a name="input_mysql_instance_compartment_ocid"></a> [mysql\_instance\_compartment\_ocid](#input\_mysql\_instance\_compartment\_ocid) | (Optional) OCID of the compartment where MySQL Instance will be created. Use alternatively to mysql_instance_compartment_name | `any` | n/a | no |
 | <a name="input_mysql_network_compartment_ocid"></a> [mysql\_network\_compartment\_ocid](#input\_mysql\_network\_compartment\_ocid) | (Optional) OCID of the compartment where the network of MySQL artifact is. Use alternatively to mysql_network_compartment_name | `any` | n/a | no |
-| <a name="input_mysql_shape_name"></a> [mysql\_shape\_name](#input\_mysql\_shape\_name) | (Required) The name of the shape. The shape determines the resources allocated. CPU cores and memory for VM shapes; CPU cores, memory and storage for non-VM (or bare metal) shapes. To get a list of shapes, use the ListShapes operation. | `any` | n/a | yes |
+| <a name="input_mysql_shape_name"></a> [mysql\_shape\_name](#input\_mysql\_shape\_name) | (Required) The name of the shape. The shape determines the resources allocated. CPU cores and memory for VM shapes; CPU cores, memory and storage for non-VM (or bare metal) shapes. To get a list of shapes, use the ListShapes operation. | `any` | `"MySQL.VM.Standard.E3.1.8GB"` | yes |
+| <a name="input_mysql_heatwave_enabled"></a> [mysql\_heatwave\_enabled](#input\_mysql\_heatwave\_enabled) | Defines whether a MySQL HeatWave cluster is enabled. | `bool` | `false` | no |
+| <a name="input_mysql_heatwave_cluster_size"></a> [mysql\_heatwave\_cluster\_size](#input\_mysql\_heatwave\_cluster\_size) | Number of MySQL HeatWave nodes to be created. | `any` | `2` | no |
+| <a name="input_mysql_heatwave_shape"></a> [mysql\_heatwave\_shape](#input\_mysql\_heatwave\_shape) | The shape to be used instead of mysql_shape_name when mysql_heatwave_enabled = true. | `any` | `"MySQL.HeatWave.VM.Standard.E3"` | no |
 | <a name="input_network_subnet_name"></a> [network\_subnet\_name](#input\_network\_subnet\_name) | Defines the subnet display name where this resource will be created at | `any` | n/a | yes |
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | (Optional) Subnet OCID. Use alternatively to network_subnet_name | `any` | n/a | no |
 | <a name="input_region"></a> [region](#input\_region) | Target region where artifacts are going to be created | `any` | n/a | yes |
@@ -150,7 +153,7 @@ No modules.
 This project is open source.  Please submit your contributions by forking this repository and submitting a pull request!  Oracle appreciates any contributions that are made by the open source community.
 
 ## License
-Copyright (c) 2021 Oracle and/or its affiliates.
+Copyright (c) 2022 Oracle and/or its affiliates.
 
 Licensed under the Universal Permissive License (UPL), Version 1.0.
 

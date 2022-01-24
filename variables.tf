@@ -1,4 +1,4 @@
-# Copyright (c) 2021 Oracle and/or its affiliates.
+# Copyright (c) 2022 Oracle and/or its affiliates.
 # All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 # variables.tf 
 #
@@ -60,10 +60,6 @@ variable "mysql_db_system_admin_username" {
 
 variable "mysql_db_system_availability_domain" {
   description = "(Required) The availability domain on which to deploy the Read/Write endpoint. This defines the preferred primary instance. In a failover scenario, the Read/Write endpoint is redirected to one of the other availability domains and the MySQL instance in that domain is promoted to the primary instance. This redirection does not affect the IP address of the DB System in any way. For a standalone DB System, this defines the availability domain in which the DB System is placed."
-}
-
-variable "mysql_shape_name" {
-  description = "(Required) The name of the shape. The shape determines the resources allocated. CPU cores and memory for VM shapes; CPU cores, memory and storage for non-VM (or bare metal) shapes. To get a list of shapes, use the ListShapes operation."
 }
 
 variable "mysql_db_system_backup_policy_is_enabled" {
@@ -130,6 +126,26 @@ variable "mysql_db_system_port" {
 variable "mysql_db_system_port_x" {
   description = "(Optional) The TCP network port on which X Plugin listens for connections. This is the X Plugin equivalent of port."
   default     = "33060"
+}
+
+variable "mysql_shape_name" {
+  description = "(Required) The name of the shape. The shape determines the resources allocated. CPU cores and memory for VM shapes; CPU cores, memory and storage for non-VM (or bare metal) shapes. To get a list of shapes, use the ListShapes operation."
+  default     = "MySQL.VM.Standard.E3.1.8GB"
+}
+
+variable "mysql_heatwave_enabled" {
+  description = "Defines whether a MySQL HeatWave cluster is enabled"
+  default     = false
+}
+
+variable "mysql_heatwave_cluster_size" {
+  description = "Number of MySQL HeatWave nodes to be created"
+  default     = 2
+}
+
+variable "mysql_heatwave_shape" {
+  description = "The shape to be used instead of mysql_shape_name when mysql_heatwave_enabled = true."
+  default     = "MySQL.HeatWave.VM.Standard.E3"
 }
 
 /********** MySQL Variables **********/

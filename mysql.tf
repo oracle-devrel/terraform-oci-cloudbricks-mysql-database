@@ -1,4 +1,4 @@
-# Copyright (c) 2021 Oracle and/or its affiliates.
+# Copyright (c) 2022 Oracle and/or its affiliates.
 # All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 # mysql.tf
 #
@@ -11,7 +11,7 @@ resource "oci_mysql_mysql_db_system" "DBSystem" {
   admin_username      = var.mysql_db_system_admin_username
   availability_domain = var.mysql_db_system_availability_domain
   compartment_id      = var.mysql_instance_compartment_ocid != ""? var.mysql_instance_compartment_ocid : local.compartment_id
-  shape_name          = var.mysql_shape_name
+  shape_name          = var.mysql_heatwave_enabled ? var.mysql_heatwave_shape : var.mysql_shape_name
   subnet_id           = var.subnet_id != ""? var.subnet_id : local.subnet_ocid
 
   dynamic "backup_policy" {
@@ -41,4 +41,11 @@ resource "oci_mysql_mysql_db_system" "DBSystem" {
   }
   port   = var.mysql_db_system_port
   port_x = var.mysql_db_system_port_x
+}
+
+resource "oci_mysql_heat_wave_cluster" "HeatWave" {
+    count        = var.mysql_heatwave_enabled ? 1 : 0
+    db_system_id = oci_mysql_mysql_db_system.DBSystem.id
+    cluster_size = var.mysql_heatwave_cluster_size
+    shape_name   = var.mysql_heatwave_shape
 }
