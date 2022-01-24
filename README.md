@@ -13,7 +13,7 @@ The following is the reference architecture associated to this brick
 ### Prerequisites
 - Pre-baked Artifact and Network Compartments
 
-# Sample tfvars file
+# Sample tfvars files
 ```shell
 ########## SAMPLE TFVAR FILE ##########
 ######################################## PROVIDER SPECIFIC VARIABLES ######################################
@@ -45,6 +45,46 @@ mysql_db_system_port                            = "3306"
 mysql_db_system_port_x                          = "33060"
 ######################################## ARTIFACT SPECIFIC VARIABLES ######################################
 ########## SAMPLE TFVAR FILE ##########
+
+
+
+
+
+########## SAMPLE HEATWAVE-ENABLED TFVAR FILE ##########
+######################################## PROVIDER SPECIFIC VARIABLES ######################################
+region       = "re-region-1"
+tenancy_ocid = "ocid1.tenancy.oc1..aaaaaaaaabcdefg"
+user_ocid    = "ocid1.user.oc1..aaaaaaaahijklm"
+fingerprint  = "fo:oo:ba:ar:ba:ar"
+######################################## PROVIDER SPECIFIC VARIABLES ######################################
+######################################## ARTIFACT SPECIFIC VARIABLES ######################################
+mysql_instance_compartment_name                 = "MY_ARTIFACT_COMPARTMENT"
+mysql_network_compartment_name                  = "MY_NETWORK_COMPARTMENT"
+vcn_display_name                                = "MY_VCN"
+network_subnet_name                             = "MY_SUBNET"
+mysql_db_system_admin_username                  = "MY_ADMIN_USERNAME"
+mysql_db_system_admin_password                  = "MY_ADMIN_PASSWORD"
+mysql_db_system_availability_domain             = "aBCD:RE-REGION-1-AD-1"
+mysql_shape_name                                = "MySQL.VM.Standard.E3.1.8GB"
+mysql_db_system_backup_policy_is_enabled        = true
+mysql_db_system_backup_policy_retention_in_days = "7"
+mysql_db_system_backup_policy_window_start_time = "02:30"
+mysql_db_system_data_storage_size_in_gb         = "50"
+mysql_db_system_description                     = "MY_DATABASE_DESCRIPTION"
+mysql_db_system_display_name                    = "MY_DISPLAY_NAME"
+mysql_db_system_fault_domain                    = "FAULT-DOMAIN-1"
+mysql_db_system_hostname_label                  = "MY_DATABASE_LABEL"
+mysql_db_system_is_highly_available             = false
+mysql_db_system_maintenance_window_start_time   = "SUNDAY 14:30"
+mysql_db_system_port                            = "3306"
+mysql_db_system_port_x                          = "33060"
+######################################## ARTIFACT SPECIFIC VARIABLES ######################################
+######################################## HEATWAVE SPECIFIC VARIABLES ######################################
+mysql_heatwave_enabled                          = true
+mysql_heatwave_cluster_size                     = 3
+mysql_heatwave_shape                            = "MySQL.HeatWave.VM.Standard.E3"
+######################################## HEATWAVE SPECIFIC VARIABLES ######################################
+########## SAMPLE HEATWAVE-ENABLED TFVAR FILE ##########
 ```
 
 ### Variable specific considerations
@@ -52,6 +92,9 @@ mysql_db_system_port_x                          = "33060"
 - If variable `mysql_db_system_is_highly_available` is set to true, the same mysql shape is deployed in each availability domain.
 - If variable `mysql_db_system_backup_policy_is_enabled` is set to false `mysql_db_system_backup_policy_retention_in_days` and `mysql_db_system_backup_policy_window_start_time` are ignored and don't need to be defined.
 - Alternatively to `mysql_instance_compartment_name`, `mysql_network_compartment_name`, `vcn_display_name` and `network_subnet_name`, you can use `mysql_instance_compartment_ocid`, `mysql_network_compartment_ocid` and `subnet_id` (no VCN OCID is required in that case).
+- When setting `mysql_heatwave_enabled` to true, `mysql_db_system_is_highly_available` must be false, and vice-versa.
+
+
 
 ---
 ### Sample provider
