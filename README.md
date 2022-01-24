@@ -13,7 +13,7 @@ The following is the reference architecture associated to this brick
 ### Prerequisites
 - Pre-baked Artifact and Network Compartments
 
-# Sample tfvars file
+# Sample tfvars files
 ```shell
 ########## SAMPLE TFVAR FILE ##########
 ######################################## PROVIDER SPECIFIC VARIABLES ######################################
@@ -45,6 +45,46 @@ mysql_db_system_port                            = "3306"
 mysql_db_system_port_x                          = "33060"
 ######################################## ARTIFACT SPECIFIC VARIABLES ######################################
 ########## SAMPLE TFVAR FILE ##########
+
+
+
+
+
+########## SAMPLE HEATWAVE-ENABLED TFVAR FILE ##########
+######################################## PROVIDER SPECIFIC VARIABLES ######################################
+region       = "re-region-1"
+tenancy_ocid = "ocid1.tenancy.oc1..aaaaaaaaabcdefg"
+user_ocid    = "ocid1.user.oc1..aaaaaaaahijklm"
+fingerprint  = "fo:oo:ba:ar:ba:ar"
+######################################## PROVIDER SPECIFIC VARIABLES ######################################
+######################################## ARTIFACT SPECIFIC VARIABLES ######################################
+mysql_instance_compartment_name                 = "MY_ARTIFACT_COMPARTMENT"
+mysql_network_compartment_name                  = "MY_NETWORK_COMPARTMENT"
+vcn_display_name                                = "MY_VCN"
+network_subnet_name                             = "MY_SUBNET"
+mysql_db_system_admin_username                  = "MY_ADMIN_USERNAME"
+mysql_db_system_admin_password                  = "MY_ADMIN_PASSWORD"
+mysql_db_system_availability_domain             = "aBCD:RE-REGION-1-AD-1"
+mysql_shape_name                                = "MySQL.VM.Standard.E3.1.8GB"
+mysql_db_system_backup_policy_is_enabled        = true
+mysql_db_system_backup_policy_retention_in_days = "7"
+mysql_db_system_backup_policy_window_start_time = "02:30"
+mysql_db_system_data_storage_size_in_gb         = "50"
+mysql_db_system_description                     = "MY_DATABASE_DESCRIPTION"
+mysql_db_system_display_name                    = "MY_DISPLAY_NAME"
+mysql_db_system_fault_domain                    = "FAULT-DOMAIN-1"
+mysql_db_system_hostname_label                  = "MY_DATABASE_LABEL"
+mysql_db_system_is_highly_available             = false
+mysql_db_system_maintenance_window_start_time   = "SUNDAY 14:30"
+mysql_db_system_port                            = "3306"
+mysql_db_system_port_x                          = "33060"
+######################################## ARTIFACT SPECIFIC VARIABLES ######################################
+######################################## HEATWAVE SPECIFIC VARIABLES ######################################
+mysql_heatwave_enabled                          = true
+mysql_heatwave_cluster_size                     = 3
+mysql_heatwave_shape                            = "MySQL.HeatWave.VM.Standard.E3"
+######################################## HEATWAVE SPECIFIC VARIABLES ######################################
+########## SAMPLE HEATWAVE-ENABLED TFVAR FILE ##########
 ```
 
 ### Variable specific considerations
@@ -52,6 +92,9 @@ mysql_db_system_port_x                          = "33060"
 - If variable `mysql_db_system_is_highly_available` is set to true, the same mysql shape is deployed in each availability domain.
 - If variable `mysql_db_system_backup_policy_is_enabled` is set to false `mysql_db_system_backup_policy_retention_in_days` and `mysql_db_system_backup_policy_window_start_time` are ignored and don't need to be defined.
 - Alternatively to `mysql_instance_compartment_name`, `mysql_network_compartment_name`, `vcn_display_name` and `network_subnet_name`, you can use `mysql_instance_compartment_ocid`, `mysql_network_compartment_ocid` and `subnet_id` (no VCN OCID is required in that case).
+- When setting `mysql_heatwave_enabled` to true, `mysql_db_system_is_highly_available` must be false, and vice-versa.
+
+
 
 ---
 ### Sample provider
@@ -132,7 +175,10 @@ No modules.
 | <a name="input_mysql_network_compartment_name"></a> [mysql\_network\_compartment\_name](#input\_mysql\_network\_compartment\_name) | Compartment where the network of MySQL artifact is | `any` | n/a | yes |
 | <a name="input_mysql_instance_compartment_ocid"></a> [mysql\_instance\_compartment\_ocid](#input\_mysql\_instance\_compartment\_ocid) | (Optional) OCID of the compartment where MySQL Instance will be created. Use alternatively to mysql_instance_compartment_name | `any` | n/a | no |
 | <a name="input_mysql_network_compartment_ocid"></a> [mysql\_network\_compartment\_ocid](#input\_mysql\_network\_compartment\_ocid) | (Optional) OCID of the compartment where the network of MySQL artifact is. Use alternatively to mysql_network_compartment_name | `any` | n/a | no |
-| <a name="input_mysql_shape_name"></a> [mysql\_shape\_name](#input\_mysql\_shape\_name) | (Required) The name of the shape. The shape determines the resources allocated. CPU cores and memory for VM shapes; CPU cores, memory and storage for non-VM (or bare metal) shapes. To get a list of shapes, use the ListShapes operation. | `any` | n/a | yes |
+| <a name="input_mysql_shape_name"></a> [mysql\_shape\_name](#input\_mysql\_shape\_name) | (Required) The name of the shape. The shape determines the resources allocated. CPU cores and memory for VM shapes; CPU cores, memory and storage for non-VM (or bare metal) shapes. To get a list of shapes, use the ListShapes operation. | `any` | `"MySQL.VM.Standard.E3.1.8GB"` | yes |
+| <a name="input_mysql_heatwave_enabled"></a> [mysql\_heatwave\_enabled](#input\_mysql\_heatwave\_enabled) | Defines whether a MySQL HeatWave cluster is enabled. | `bool` | `false` | no |
+| <a name="input_mysql_heatwave_cluster_size"></a> [mysql\_heatwave\_cluster\_size](#input\_mysql\_heatwave\_cluster\_size) | Number of MySQL HeatWave nodes to be created. | `any` | `2` | no |
+| <a name="input_mysql_heatwave_shape"></a> [mysql\_heatwave\_shape](#input\_mysql\_heatwave\_shape) | The shape to be used instead of mysql_shape_name when mysql_heatwave_enabled = true. | `any` | `"MySQL.HeatWave.VM.Standard.E3"` | no |
 | <a name="input_network_subnet_name"></a> [network\_subnet\_name](#input\_network\_subnet\_name) | Defines the subnet display name where this resource will be created at | `any` | n/a | yes |
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | (Optional) Subnet OCID. Use alternatively to network_subnet_name | `any` | n/a | no |
 | <a name="input_region"></a> [region](#input\_region) | Target region where artifacts are going to be created | `any` | n/a | yes |
@@ -150,7 +196,7 @@ No modules.
 This project is open source.  Please submit your contributions by forking this repository and submitting a pull request!  Oracle appreciates any contributions that are made by the open source community.
 
 ## License
-Copyright (c) 2021 Oracle and/or its affiliates.
+Copyright (c) 2022 Oracle and/or its affiliates.
 
 Licensed under the Universal Permissive License (UPL), Version 1.0.
 
