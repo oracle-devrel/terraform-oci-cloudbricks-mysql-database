@@ -15,14 +15,17 @@ variable "tenancy_ocid" {
 
 variable "user_ocid" {
   description = "User OCID in tenancy"
+  default = ""
 }
 
 variable "fingerprint" {
   description = "API Key Fingerprint for user_ocid derived from public API Key imported in OCI User config"
+  default = ""
 }
 
 variable "private_key_path" {
   description = "Private Key Absolute path location where terraform is executed"
+  default = ""
 }
 
 /********** Provider Variables NOT OVERLOADABLE **********/
